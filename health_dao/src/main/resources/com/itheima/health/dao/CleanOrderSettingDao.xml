@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace属性：名称空间， 写接口的全限定名-->
+<mapper namespace="com.itheima.health.dao.CleanOrderSettingDao">
+
+    <delete id="cleanOrderSetting">
+        delete from t_ordersetting where orderDate &lt; CURRENT_DATE
+    </delete>
+</mapper>
