@@ -6,6 +6,7 @@ import com.itheima.health.entity.Result;
 import com.itheima.health.service.MemberService;
 import com.itheima.health.service.ReportService;
 import com.itheima.health.service.SetmealService;
+import com.itheima.health.utils.DateUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -39,6 +40,23 @@ public class ReportController {
     @Reference
     private ReportService reportService;
 
+
+    @GetMapping("/getMemberReportByMonthRange")
+    public Result getMemberReportByMonthRange(String startMonth,String endMonth) {
+        try {
+            List<String> months = DateUtils.getMonthBetween(startMonth, endMonth, "yyyy-MM");
+            // 调用服务来查询
+            List<Integer> memberCount = memberService.getMemberReport(months);
+            // {months,memberCount}
+            Map<String,Object> reslutMap = new HashMap<String,Object>(2);
+            reslutMap.put("months", months);
+            reslutMap.put("memberCount",memberCount);
+            return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS,reslutMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Result(false, MessageConstant.GET_MEMBER_NUMBER_REPORT_FAIL);
+    }
     /**
      * 统计过去1年每个月的会员总数量
      * @return
@@ -101,7 +119,6 @@ public class ReportController {
         resultMap.put("setmealCount",reportData);
         return new Result(true, MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS,resultMap);
     }
-
     /**
      * 饼图按性别分
      */
