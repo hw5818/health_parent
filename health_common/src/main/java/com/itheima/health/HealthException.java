@@ -1,7 +1,5 @@
 package com.itheima.health;
 
-import com.sun.xml.internal.ws.handler.HandlerException;
-
 /**
  * Description:
  * 自定义异常使用场景：

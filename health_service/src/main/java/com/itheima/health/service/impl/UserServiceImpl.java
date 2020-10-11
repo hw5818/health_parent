@@ -3,7 +3,6 @@ package com.itheima.health.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.itheima.health.HealthException;
 import com.itheima.health.dao.UserDao;
 import com.itheima.health.entity.PageResult;
 import com.itheima.health.entity.QueryPageBean;
