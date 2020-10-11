@@ -53,17 +53,15 @@
             </el-header>
             <el-container>
                 <el-aside width="200px">
-<!--                    菜单                    -->
                     <el-menu>
                         <el-submenu v-for="menu in menuList" :index="menu.path">
                             <template slot="title">
                                 <i class="fa" :class="menu.icon"></i>
-                                {{menu.name}}
+                                {{menu.title}}
                             </template>
-<!--                            子菜单                                 -->
                             <template v-for="child in menu.children">
                                 <el-menu-item :index="child.path">
-                                    <a :href="child.linkUrl" target="right">{{child.name}}</a>
+                                    <a :href="child.linkUrl" target="right">{{child.title}}</a>
                                 </el-menu-item>
                             </template>
                         </el-submenu>
@@ -82,12 +80,10 @@
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script>
     var vue = new Vue({
-
         el: '#app',
         data:{
             loginUsername:'',// 登陆用户的名称
             menuList:[
-                /**
                 {
                     "path": "1",
                     "title": "工作台",
@@ -193,31 +189,19 @@
                         }
                     ]
                 }
-                 */
             ]
         }
     });
-
-
-
     $(function() {
             var wd = 200;
             $(".el-main").css('width', $('body').width() - wd + 'px');
             $.get("/user/getUsername.do",res=>{
                 if(res.flag){
                     vue.loginUsername = res.data;
-                    $.get("/menu/findMenu.do?loginUsername="+res.data,res1=>{
-                        if(res1.flag){
-                            vue.menuList = res1.data;
-                        }else{
-                            alert(res1.message);
-                        }
-                    });
                 }else{
                     alert(res.message);
                 }
             });
-
     });
 </script>
 </html>
