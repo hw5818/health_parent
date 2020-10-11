@@ -94,8 +94,13 @@ public class UserController {
      */
     @PostMapping("/update")
     public Result update(@RequestBody User user, Integer[] roleIds){
-        // 加密密码
-        user.setPassword(encoder.encode(user.getPassword()));
+        User userByDB = userService.findById(user.getId());
+        // 判断密码是否更改
+        boolean flag = user.getPassword().equals(userByDB.getPassword());
+        if (flag != true) {
+            // 不相同，表示更改密码，需要重新加密密码
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
         // 调用服务更新用户
         userService.update(user,roleIds);
         return new Result(true, MessageConstant.EDIT_USER_SUCCESS);
@@ -110,4 +115,6 @@ public class UserController {
         userService.deleteById(id);
         return new Result(true, MessageConstant.DELETE_USER_SUCCESS);
     }
+
+
 }

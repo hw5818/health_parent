@@ -93,7 +93,7 @@
                 <el-table-column prop="password" label="密码" align="center"></el-table-column>
                 <el-table-column label="性别" align="center">
                     <template slot-scope="scope">
-                        <span>{{ scope.row.gender == '0' ? '不限' : scope.row.gender == '1' ? '男' : '女'}}</span>
+                        <span>{{ scope.row.gender == '0' ? '女' : scope.row.gender == '1' ? '男' : '不限'}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="birthday" label="生日" align="center"></el-table-column>
