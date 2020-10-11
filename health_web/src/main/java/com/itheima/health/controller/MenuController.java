@@ -8,15 +8,16 @@ import com.itheima.health.entity.Result;
 import com.itheima.health.pojo.Menu;
 import com.itheima.health.service.MenuService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
- * @program: health_parent
- * @description:
- * @author: hw
- * @create: 2020-10-08 19:44
- **/
+ * @Author FangJunJie
+ * @Date 2020/10/9 16:45
+ */
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
@@ -30,6 +31,16 @@ public class MenuController {
     public Result findMenu(String loginUsername) {
         List<Menu> menuList = menuService.findMenu(loginUsername);
         return new Result(true, MessageConstant.GET_MENU_SUCCESS, menuList);
+	}
+    /**
+     * 查询菜单id列表
+     * @return
+     */
+    @GetMapping("/findAll")
+    public Result findAll() {
+        // 调用服务查询菜单id列表
+        List<Menu> list = menuService.findAll();
+        return new Result(true, MessageConstant.QUERY_MENU_SUCCESS, list);
     }
 
     //分页查询菜单

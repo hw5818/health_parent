@@ -15,18 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @program: health_parent
- * @description:
- * @author: hw
- * @create: 2020-10-08 20:16
- **/
+ * @Author FangJunJie
+ * @Date 2020/10/9 16:54
+ */
 @Service(interfaceClass = MenuService.class)
 public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MenuDao menuDao;
 
-    //分页查询菜单信息
+    /**
+     * 查询菜单id列表
+     * @return
+     */
     @Override
     public PageResult<Menu> findPage(QueryPageBean queryPageBean) {
         //Mapper接口方式的调用
@@ -39,6 +40,9 @@ public class MenuServiceImpl implements MenuService {
         Page<Menu> page = menuDao.findByCondition(queryPageBean.getQueryString());
         PageResult<Menu> pageResult = new PageResult<Menu>(page.getTotal(), page.getResult());
         return pageResult;
+	}
+    public List<Menu> findAll() {
+        return menuDao.findAll();
     }
 
     //新增菜单

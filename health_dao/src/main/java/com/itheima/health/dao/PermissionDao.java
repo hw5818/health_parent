@@ -3,13 +3,18 @@ package com.itheima.health.dao;
 import com.github.pagehelper.Page;
 import com.itheima.health.pojo.Permission;
 
+import java.util.List;
+
 /**
- * @program: health_parent
- * @description:
- * @author: hw
- * @create: 2020-10-09 14:16
- **/
+ * @Author FangJunJie
+ * @Date 2020/10/9 16:59
+ */
 public interface PermissionDao {
+    /**
+     * 查询权限id列表
+     * @return
+     */
+    List<Permission> findAll();
     //分页查询权限信息
     public Page<Permission> findByCondition(String queryString);
 

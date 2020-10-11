@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--namespaceå±žæ€§ï¼šåç§°ç©ºé—´ï¼Œ å†™æŽ¥å£çš„å…¨é™å®šå-->
+<!--namespaceÊôÐÔ£ºÃû³Æ¿Õ¼ä£¬ Ð´½Ó¿ÚµÄÈ«ÏÞ¶¨Ãû-->
 <mapper namespace="com.itheima.health.dao.MenuDao">
-    <!--  æ–°å¢žèœå•  -->
+    <!--  ÐÂÔö²Ëµ¥  -->
     <insert id="add" parameterType="com.itheima.health.pojo.Menu">
         insert into t_menu(name,linkUrl,path,priority,icon,parentMenuId,level)
         values (#{name},#{linkUrl},#{path},#{priority},#{icon},#{parentMenuId},
@@ -14,25 +14,28 @@
 
     </insert>
 
-    <!--  åˆ†é¡µæŸ¥è¯¢èœå•  -->
+    <!--  ·ÖÒ³²éÑ¯²Ëµ¥  -->
     <select id="findByCondition" resultType="com.itheima.health.pojo.Menu" parameterType="string">
         select * From t_menu
         <if test="value !=null and value.length > 0">
             where name like #{value}
         </if>
     </select>
+	<select id="findAll" resultType="menu">
+        select * from t_menu
+    </select>
 
-    <!--    åˆ é™¤èœå•-->
+    <!--    É¾³ý²Ëµ¥-->
     <delete id="deleteById" parameterType="int">
         delete from t_menu where id = #{id}
     </delete>
 
-    <!--  æ ¹æ®idæŸ¥èœå•  -->
+    <!--  ¸ù¾Ýid²é²Ëµ¥  -->
     <select id="findById" resultType="com.itheima.health.pojo.Menu">
         select * from t_menu where id = #{id}
     </select>
 
-    <!--  ç¼–è¾‘èœå•  -->
+    <!--  ±à¼­²Ëµ¥  -->
     <update id="update" parameterType="com.itheima.health.pojo.Menu">
         update t_menu set name = #{name},
         linkUrl = #{linkUrl},
@@ -45,7 +48,7 @@
         where id = #{id}
     </update>
 
-    <!--    æ ¹æ®ç™»å½•ç”¨æˆ·åŠ¨æ€èŽ·å–èœå•-->
+    <!--    ¸ù¾ÝµÇÂ¼ÓÃ»§¶¯Ì¬»ñÈ¡²Ëµ¥-->
     <select id="findMenu" parameterType="string" resultType="com.itheima.health.pojo.Menu">
         SELECT * FROM t_menu m WHERE m.parentMenuId in
         (SELECT id from t_menu m WHERE m.priority in(SELECT menu_id FROM t_role_menu trm WHERE trm.role_id = (SELECT role_id FROM t_user_role tur WHERE tur.role_id = (SELECT id FROM t_user where username = #{loginUsername}))) and `level` =1)

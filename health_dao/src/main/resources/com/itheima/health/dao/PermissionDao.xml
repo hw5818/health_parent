@@ -2,38 +2,41 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--namespaceå±žæ€§ï¼šåç§°ç©ºé—´ï¼Œ å†™æŽ¥å£çš„å…¨é™å®šå-->
+<!--namespaceÊôÐÔ£ºÃû³Æ¿Õ¼ä£¬ Ð´½Ó¿ÚµÄÈ«ÏÞ¶¨Ãû-->
 <mapper namespace="com.itheima.health.dao.PermissionDao">
-    <!--  åˆ†é¡µæŸ¥è¯¢èœå•  -->
+    <!--  ·ÖÒ³²éÑ¯²Ëµ¥  -->
     <select id="findByCondition" resultType="com.itheima.health.pojo.Permission" parameterType="string">
         select * From t_permission
         <if test="value !=null and value.length > 0">
             where name like #{value}
         </if>
+	</select>
+    <select id="findAll" resultType="permission">
+        select * from t_permission
     </select>
 
-    <!--  æ–°å¢žæƒé™  -->
+    <!--  ÐÂÔöÈ¨ÏÞ  -->
     <insert id="add" parameterType="com.itheima.health.pojo.Permission">
         insert into t_permission (name,keyword,description)
         values (#{name},#{keyword},#{description})
     </insert>
 
-    <!--æŸ¥è¯¢æƒé™æ˜¯å¦è¢«è§’è‰²ä½¿ç”¨-->
+    <!--²éÑ¯È¨ÏÞÊÇ·ñ±»½ÇÉ«Ê¹ÓÃ-->
     <select id="findCountByRoleId" parameterType="int" resultType="int">
     select count(1) from t_role_permission where role_id=#{id}
     </select>
 
-    <!--åˆ é™¤æƒé™-->
+    <!--É¾³ýÈ¨ÏÞ-->
     <delete id="deleteById" parameterType="int">
     delete from t_permission where id=#{id}
     </delete>
 
-    <!--  ç¼–è¾‘æƒé™  -->
+    <!--  ±à¼­È¨ÏÞ  -->
     <update id="update" parameterType="com.itheima.health.pojo.Permission">
         update t_permission set name =#{name},keyword=#{keyword},description=#{description} where id = #{id}
     </update>
 
-    <!--  æ ¹æ®idèŽ·å–æƒé™ä¿¡æ¯  -->
+    <!--  ¸ù¾Ýid»ñÈ¡È¨ÏÞÐÅÏ¢  -->
     <select id="findById" resultType="com.itheima.health.pojo.Permission">
         select * from t_permission where id = #{id}
     </select>

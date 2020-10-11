@@ -1,4 +1,7 @@
-package com.itheima.health.service.impl;
+package com.itheima.health.service.impl;/**
+     * 查询权限id列表
+     * @return
+     */
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -13,12 +16,12 @@ import com.itheima.health.pojo.Permission;
 import com.itheima.health.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
- * @program: health_parent
- * @description:
- * @author: hw
- * @create: 2020-10-09 14:15
- **/
+ * @Author FangJunJie
+ * @Date 2020/10/9 16:58
+ */
 @Service(interfaceClass = PermissionService.class)
 public class PermissionServiceImpl implements PermissionService {
 
@@ -38,6 +41,13 @@ public class PermissionServiceImpl implements PermissionService {
         Page<Permission> page = permissionDao.findByCondition(queryPageBean.getQueryString());
         PageResult<Permission> pageResult = new PageResult<Permission>(page.getTotal(), page.getResult());
         return pageResult;
+	}
+	/**
+     * 查询权限id列表
+     * @return
+     */
+    public List<Permission> findAll() {
+        return permissionDao.findAll();
     }
 
     //新增权限

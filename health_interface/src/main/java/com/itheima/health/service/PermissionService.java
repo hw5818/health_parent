@@ -5,7 +5,18 @@ import com.itheima.health.entity.PageResult;
 import com.itheima.health.entity.QueryPageBean;
 import com.itheima.health.pojo.Permission;
 
+import java.util.List;
+
+/**
+ * @Author FangJunJie
+ * @Date 2020/10/9 16:53
+ */
 public interface PermissionService {
+    /**
+     * 查询权限id列表
+     * @return
+     */
+    List<Permission> findAll();
     //分页查询权限信息
     PageResult<Permission> findPage(QueryPageBean queryPageBean);
 

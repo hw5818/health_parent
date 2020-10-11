@@ -2,19 +2,24 @@ package com.itheima.health.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.health.entity.PageResult;
+import com.itheima.health.constant.MessageConstant;
 import com.itheima.health.entity.QueryPageBean;
 import com.itheima.health.entity.Result;
 import com.itheima.health.pojo.Permission;
 import com.itheima.health.service.PermissionService;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
- * @program: health_parent
- * @description:
- * @author: hw
- * @create: 2020-10-09 14:09
- **/
+ * @Author FangJunJie
+ * @Date 2020/10/9 16:45
+ */
 @RestController
 @RequestMapping("/permission")
 public class PermissionController {
@@ -27,6 +32,16 @@ public class PermissionController {
     public Result findPage(@RequestBody QueryPageBean queryPageBean) {
         PageResult<Permission> pageResult = permissionService.findPage(queryPageBean);
         return new Result(true, "分页查询权限成功", pageResult);
+	}
+    /**
+     * 查询权限id列表
+     * @return
+     */
+    @GetMapping("/findAll")
+    public Result findAll() {
+        // 调用服务查询权限id列表
+        List<Permission> list = permissionService.findAll();
+        return new Result(true, MessageConstant.QUERY_PERMISSION_SUCCESS, list);
     }
 
     //新增权限信息
