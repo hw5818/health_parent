@@ -82,4 +82,8 @@ public interface SetmealService {
      * @return
      */
     List<Map<String, Object>> getSetmealReport();
+
+    List<Map<String, Object>> getSetmealReport1();
+
+    List<Map<String, Object>> getSetmealReport2();
 }

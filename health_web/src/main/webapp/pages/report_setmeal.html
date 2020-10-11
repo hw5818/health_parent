@@ -26,6 +26,8 @@
         <div class="box">
             <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
             <div id="chart1" style="height:600px;"></div>
+            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+            <div id="chart2" style="height:600px;"></div>
         </div>
     </div>
 </div>
@@ -36,14 +38,15 @@
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
     var myChart1 = echarts.init(document.getElementById('chart1'));
+    var myChart2 = echarts.init(document.getElementById('chart2'));
 
     // 使用刚指定的配置项和数据显示图表。
     //myChart.setOption(option);
 
-    axios.get("/report/getSetmealReport.do").then((res) => {
+    axios.get("/report/getSetmealReport1.do").then((res) => {
         myChart1.setOption({
             title: {
-                text: '套餐预约占比',
+                text: '会员数量组成(性别分)',
                 subtext: '',
                 x: 'center'
             },
@@ -58,7 +61,41 @@
             },
             series: [
                 {
-                    name: '套餐预约占比',
+                    name: '会员数量组成(性别分)',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: res.data.data.setmealCount,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        });
+    });
+    axios.get("/report/getSetmealReport2.do").then((res) => {
+        myChart2.setOption({
+            title: {
+                text: '会员数量组成(年龄段分)',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {//提示框组件
+                trigger: 'item',//触发类型，在饼形图中为item
+                formatter: "{a} <br/>{b} : {c} ({d}%)"//提示内容格式
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: res.data.data.setmealNames
+            },
+            series: [
+                {
+                    name: '会员数量组成(年龄段分)',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],

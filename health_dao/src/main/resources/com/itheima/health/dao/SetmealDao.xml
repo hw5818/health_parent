@@ -139,4 +139,24 @@
         select s.name,count(1) value from t_setmeal s, t_order o
         where s.id=o.setmeal_id group by s.id,s.name
     </select>
+
+    <select id="getSetmealReport1" resultType="map">
+        select sex name,count(1) value from t_member group by sex
+    </select>
+
+    <select id="getbirthday1" resultType="int">
+        select count(*) from t_member where birthday BETWEEN '2002-01-01' and CURRENT_DATE
+    </select>
+
+    <select id="getbirthday2" resultType="int">
+        select count(*) from t_member where birthday BETWEEN '1990-01-01' and '2002-01-01'
+    </select>
+
+    <select id="getbirthday3" resultType="int">
+        select count(*) from t_member where birthday BETWEEN '1975-01-01' and '1990-01-01'
+    </select>
+
+    <select id="getbirthday4" resultType="int">
+        select count(*) from t_member where birthday BETWEEN '1000-01-01' and '1975-01-01'
+    </select>
 </mapper>

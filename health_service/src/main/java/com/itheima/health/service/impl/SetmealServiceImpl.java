@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -184,5 +186,64 @@ public class SetmealServiceImpl implements SetmealService {
     @Override
     public List<Map<String, Object>> getSetmealReport() {
         return setmealDao.getSetmealReport();
+    }
+
+    /**
+     * 饼图 性别分
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> getSetmealReport1() {
+        List<Map<String, Object>> list1 = setmealDao.getSetmealReport1();
+        List<Map<String,Object>> list2 = new ArrayList<>();
+        Map<String, Object> map1 = new HashMap<>();
+        Map<String, Object> map2 = new HashMap<>();
+        for (Map<String, Object> map : list1) {
+            if (map.get("name").equals("1")){
+                map1.put("name","男" );
+                map1.put("value",map.get("value"));
+            }else if (map.get("name").equals("2")){
+                map2.put("name","女" );
+                map2.put("value",map.get("value"));
+            }
+        }
+        list2.add(map1);
+        list2.add(map2);
+        return list2;
+    }
+
+    /**
+     * 饼图 年龄分
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> getSetmealReport2() {
+        List<Map<String,Object>> list = new ArrayList<>();
+
+        int bir1 = setmealDao.getbirthday1();
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("name", "0-18");
+        map1.put("value",bir1);
+
+        int bir2 = setmealDao.getbirthday2();
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("name", "18-30");
+        map2.put("value",bir2);
+
+        int bir3 = setmealDao.getbirthday3();
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("name", "30-45");
+        map3.put("value",bir3);
+
+        int bir4 = setmealDao.getbirthday4();
+        Map<String, Object> map4 = new HashMap<>();
+        map4.put("name", "45以上");
+        map4.put("value",bir4);
+
+        list.add(map1);
+        list.add(map2);
+        list.add(map3);
+        list.add(map4);
+        return list;
     }
 }

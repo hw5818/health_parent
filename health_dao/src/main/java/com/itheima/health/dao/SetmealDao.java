@@ -103,4 +103,14 @@ public interface SetmealDao {
      * @return
      */
     List<Map<String, Object>> getSetmealReport();
+
+    List<Map<String, Object>> getSetmealReport1();
+
+    int getbirthday1();
+
+    int getbirthday2();
+
+    int getbirthday3();
+
+    int getbirthday4();
 }

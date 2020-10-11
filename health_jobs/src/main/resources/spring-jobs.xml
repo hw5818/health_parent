@@ -17,12 +17,6 @@
         <!--是否并发任务 false同步执行-->
         <property name="concurrent" value="false"/>
     </bean>
-    <!--任务策略二-->
-    <bean id="jobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="cleanOrderSettingJob"/>
-        <property name="targetMethod" value="cleanOrderSetting"/>
-        <property name="concurrent" value="false"/>
-    </bean>
     <!--  触发器  -->
     <bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <!--触发时机 7子表达式-->
@@ -30,18 +24,12 @@
         <!--触发时调用的任务策略-->
         <property name="jobDetail" ref="jobDetail"/>
     </bean>
-    <!--触发器二，每月删除多余预约数据,"0 0 2 L * ?"-->
-    <bean id="trigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="cronExpression" value="0 0 2 L * ?"/>
-        <property name="jobDetail" ref="jobDetail2"/>
-    </bean>
 
     <!--  调度容器      -->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="trigger"/>
-                <ref bean="trigger2" />
             </list>
         </property>
     </bean>

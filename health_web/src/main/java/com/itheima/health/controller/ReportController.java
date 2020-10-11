@@ -103,6 +103,56 @@ public class ReportController {
     }
 
     /**
+     * 饼图按性别分
+     */
+    @GetMapping("/getSetmealReport1")
+    public Result getSetmealReport1(){
+        //同性别个数
+        List<Map<String,Object>> reportData = setmealService.getSetmealReport1();
+        //返回前端的集合
+        Map<String,Object> resultMap = new HashMap<>();
+        //抽取性别
+        List<String> setmealNames = new ArrayList<>();
+        if (null != reportData && reportData.size() > 0){
+            for (Map<String, Object> data : reportData) {
+                //提取性别
+//                Object sex = data.get("name");
+//                if (sex.equals("1")){
+//                    setmealNames.add("男");
+//                }else if (sex.equals("2")){
+//                    setmealNames.add("女");
+//                }
+                setmealNames.add((String)data.get("name"));
+            }
+        }
+        resultMap.put("setmealNames",setmealNames );
+        resultMap.put("setmealCount",reportData );
+        return new Result(true,MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS,resultMap );
+    }
+
+    /**
+     * 饼图按年龄段分
+     */
+    @GetMapping("/getSetmealReport2")
+    public Result getSetmealReport2(){
+        //同性别个数
+        List<Map<String,Object>> reportData = setmealService.getSetmealReport2();
+        //返回前端的集合
+        Map<String,Object> resultMap = new HashMap<>();
+        //抽取性别
+        List<String> setmealNames = new ArrayList<>();
+        if (null != reportData && reportData.size() > 0){
+            //提取性别
+            for (Map<String, Object> data : reportData) {
+                setmealNames.add((String) data.get("name"));
+            }
+        }
+        resultMap.put("setmealNames",setmealNames );
+        resultMap.put("setmealCount",reportData );
+        return new Result(true,MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS,resultMap );
+    }
+
+    /**
      * 运营数据统计
      */
     @GetMapping("/getBusinessReportData")
